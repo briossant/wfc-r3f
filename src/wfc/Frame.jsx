@@ -21,6 +21,7 @@ export default class Frame {
     collapse = () => {
         this.collapsed = true;
         this.tile = this.tiles[getRdmInt(0, this.tiles.length)];
+        this.tiles = [this.tile];
     }
 
     forEachNeighbours = (fct) => {
@@ -56,8 +57,7 @@ export default class Frame {
 
         // only one choice so the tile can be collapsed
         if (new_tiles.length === 1) {
-            this.collapsed = true;
-            this.tile = new_tiles[0];
+            this.collapse();
         }
 
         // impossible case -> error

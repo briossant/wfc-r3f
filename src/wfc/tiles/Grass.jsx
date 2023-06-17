@@ -1,8 +1,10 @@
 import {Component} from "react";
 
-export default class extends Component {
+export default class Grass extends Component {
     static id = "Grass";
-    static ok = ["Dirt", this.id, "Air"];
+    static ok = ["Dirt", "Grass", "Air"];
+
+    static createReactInstance = (props) => <Grass {...props}/>;
 
     render(){
         return <>

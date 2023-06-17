@@ -1,10 +1,12 @@
 import {Component} from "react";
 
-export default class extends Component {
+export default class Tile extends Component {
     static id = "";
     static ok = [];
 
-    constructor(props) {
-        super(props);
+    static createReactInstance = (props) => <Tile {...props}/>;
+
+    render(){
+        return <></>
     }
 }

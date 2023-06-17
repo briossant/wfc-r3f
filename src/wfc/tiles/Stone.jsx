@@ -1,8 +1,10 @@
 import Tile from "../Tile";
 
-export default class extends Tile {
+export default class Stone extends Tile {
     static id = "Stone";
-    static ok = ["Air", "Dirt", this.id];
+    static ok = ["Dirt", "Stone"];
+
+    static createReactInstance = (props) => <Stone {...props}/>;
 
     render(){
         return <>
