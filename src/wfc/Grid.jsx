@@ -3,13 +3,14 @@ import {getRdmInt} from "../utilities";
 
 export default class {
 
-    // todo : 3d grid mdr
-    constructor(width, height, tiles) {
+    constructor(width, height, depth, tiles) {
         this.width = width;
         this.height = height;
+        this.depth = depth;
         this.grid = [...Array(width)].map(() =>
-                [...Array(height)].map(() => new Frame(tiles))
-            );
+            [...Array(width)].map(() =>
+                [...Array(depth)].map(() => new Frame(tiles))
+            ));
         this.fillFramesNeighbours();
 
         this.notCollapsedFrames = [];
@@ -20,8 +21,15 @@ export default class {
     }
 
     fillFramesNeighbours = () => this.grid.forEach((row, x) => {
-        row.forEach((frame,y) => {
-
+        row.forEach((line,y) => {
+            line.forEach((frame,z) =>{
+                if(x>0) frame.neiMinusX = this.grid[x-1][y][z];
+                if(y>0) frame.neiMinusY = this.grid[x][y-1][z];
+                if(z>0) frame.neiMinusZ = this.grid[x][y][z-1];
+                if(x<this.width-1) frame.neiPlusX = this.grid[x+1][y][z];
+                if(y<this.height-1) frame.neiPlusY = this.grid[x][y+1][z];
+                if(z<this.depth-1) frame.neiPlusZ = this.grid[x][y][z+1];
+            });
         });
     });
 
@@ -49,7 +57,8 @@ export default class {
         for (let i = 0; i < this.nRandomTries; i++) {
             const randomX = getRdmInt(0, this.width);
             const randomY = getRdmInt(0, this.height);
-            const frame = this.grid[randomX][randomY];
+            const randomZ = getRdmInt(0, this.depth);
+            const frame = this.grid[randomX][randomY][randomZ];
 
             if (!frame.collapsed) {
                 return frame;
@@ -58,19 +67,18 @@ export default class {
 
         this.chooseFromNotCollapsedFrames = true;
         this.#genNotCollapsedFrames();
-        this.chooseRandomFrame();
+        return this.chooseRandomFrame();
     }
 
-    #genNotCollapsedFrames = () => this.notCollapsedFrames = this.grid.map(
+    #genNotCollapsedFrames = () => this.notCollapsedFrames = this.grid.flat().flatMap(
             row => row.filter(frame => !frame.collapsed)
-        ).flat();
+        );
 
 
     run = () => {
         while (!this.allCollapsed){
             const frame = this.chooseRandomFrame();
             if (this.allCollapsed) break;
-
             frame.collapse();
             frame.forEachNeighbours((nei) => nei.propagate(frame.tiles));
         }

@@ -1,4 +1,4 @@
-
+import {getRdmInt} from "../utilities";
 
 
 export default class Frame {
@@ -43,7 +43,7 @@ export default class Frame {
 
         const new_tiles = [];
         this.tiles.forEach(t => {
-            if(constraints.contains(t.id)){
+            if(constraints.includes(t.id)){
                 new_tiles.push(t);
             }
         });

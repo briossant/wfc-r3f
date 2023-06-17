@@ -1,14 +1,14 @@
 import Tile from "../Tile";
 
 export default class extends Tile {
-    static id = "Dev1";
-    static ok = [this.id, "Dev2"];
+    static id = "Dirt";
+    static ok = [this.id, "Grass", "Stone"];
 
     render(){
         return <>
             <mesh {...this.props}>
                 <boxGeometry/>
-                <meshStandardMaterial color='green' wireframe={true} />
+                <meshStandardMaterial color='brown' />
             </mesh>
         </>
     }

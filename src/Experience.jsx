@@ -1,16 +1,30 @@
 import { OrbitControls } from '@react-three/drei'
-import Dev1 from "./wfc/tiles/Dev1";
+import {useEffect, useState} from "react";
+import Grid from "./wfc/Grid";
+import Air from "./wfc/tiles/Air";
+import GridDisplayer from "./GridDisplayer";
+import Dirt from "./wfc/tiles/Dirt";
+import Grass from "./wfc/tiles/Grass";
+import Stone from "./wfc/tiles/Stone";
 
 
 export default function Experience()
 {
+    const [grd, setGrd] = useState([]);
+
+    useEffect(() => {
+        const grid = new Grid(10,10,1,[<Air/>, <Dirt/>, <Grass/>, <Stone/>])
+        grid.run();
+        setGrd(grid.grid);
+    }, [])
 
 
     return <>
 
         {/*<Perf position="top-left" />*/}
 
-        <Dev1/>
+
+        <GridDisplayer grid={grd} offset={5}/>
 
         <OrbitControls makeDefault />
 
