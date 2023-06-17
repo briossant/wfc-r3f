@@ -13,7 +13,7 @@ export default function Experience()
     const [grd, setGrd] = useState([]);
 
     useEffect(() => {
-        const grid = new Grid(20,20,5,[Air, Dirt, Grass, Stone])
+        const grid = new Grid(16,16,16,[Air, Dirt, Grass, Stone])
         grid.run();
         setGrd(grid.grid);
     }, [])

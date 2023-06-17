@@ -2,7 +2,12 @@ import {Component} from "react";
 
 export default class Tile extends Component {
     static id = "";
-    static ok = [];
+    static okPlusX = [];
+    static okPlusY = [];
+    static okPlusZ = [];
+    static okMinusX = [];
+    static okMinusY = [];
+    static okMinusZ = [];
 
     static createReactInstance = (props) => <Tile {...props}/>;
 

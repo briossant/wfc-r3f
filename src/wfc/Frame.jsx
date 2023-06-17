@@ -20,27 +20,34 @@ export default class Frame {
 
     collapse = () => {
         this.collapsed = true;
+        if (this.tiles.length === 1) {
+            this.tile = this.tiles[0];
+            return;
+        }
+
+
         this.tile = this.tiles[getRdmInt(0, this.tiles.length)];
         this.tiles = [this.tile];
     }
 
     forEachNeighbours = (fct) => {
-        if(this.neiPlusX) fct(this.neiPlusX);
-        if(this.neiMinusX) fct(this.neiMinusX);
-        if(this.neiPlusY) fct(this.neiPlusY);
-        if(this.neiMinusY) fct(this.neiMinusY);
-        if(this.neiPlusZ) fct(this.neiPlusZ);
-        if(this.neiMinusZ) fct(this.neiMinusZ);
+        if(this.neiPlusX) fct(this.neiPlusX, "PlusX");
+        if(this.neiMinusX) fct(this.neiMinusX, "MinusX");
+        if(this.neiPlusY) fct(this.neiPlusY, "PlusY");
+        if(this.neiMinusY) fct(this.neiMinusY, "MinusY");
+        if(this.neiPlusZ) fct(this.neiPlusZ, "PlusZ");
+        if(this.neiMinusZ) fct(this.neiMinusZ, "MinusZ");
     }
 
     // todo : optimizing by removing duplicates
-    static #tilesToConstraints = (tiles) => tiles.flatMap(tile => tile.ok);
+    static tilesToConstraints = (tiles,dir) => tiles.flatMap(tile => tile["ok"+dir]);
 
 
-    propagate = (tiles) => {
+    propagate = (constraints) => {
         if (this.collapsed) return;
 
-        const constraints = Frame.#tilesToConstraints(tiles);
+
+        //console.log(constraints, this.tiles)
 
         const new_tiles = [];
         this.tiles.forEach(t => {
@@ -50,21 +57,19 @@ export default class Frame {
         });
 
         // no change stop propagation
-        if (new_tiles.length === this.tiles.length) {
-            this.tiles = new_tiles;
-            return;
-        }
+        if (new_tiles.length === this.tiles.length) return;
+
+        this.tiles = new_tiles;
 
         // only one choice so the tile can be collapsed
-        if (new_tiles.length === 1) {
-            this.collapse();
-        }
+        if (new_tiles.length === 1) this.collapse();
 
         // impossible case -> error
         if (new_tiles.length === 0) throw new Error('propagate: no tiles left');
 
         // continue propagation
-        this.tiles = new_tiles;
-        this.forEachNeighbours((nei) => nei.propagate(this.tiles))
+        this.forEachNeighbours((nei, dir) =>
+            nei.propagate(Frame.tilesToConstraints(this.tiles, dir))
+        );
     }
 }

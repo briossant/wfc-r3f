@@ -78,7 +78,9 @@ export default class {
             const frame = this.chooseRandomFrame();
             if (this.allCollapsed) break;
             frame.collapse();
-            frame.forEachNeighbours((nei) => nei.propagate(frame.tiles));
+            frame.forEachNeighbours((nei, dir) =>
+                nei.propagate(frame.tile["ok"+dir])
+            );
         }
     }
 
