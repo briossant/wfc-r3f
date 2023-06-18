@@ -4,13 +4,13 @@ import {getRdmInt} from "../utilities";
 export default class {
 
     // todo : switching to a one-d array may be faster
-    constructor(width, height, depth, tiles) {
+    constructor(width, height, depth, tiles, failSafeTile) {
         this.width = width;
         this.height = height;
         this.depth = depth;
         this.grid = [...Array(width)].map(() =>
             [...Array(width)].map(() =>
-                [...Array(depth)].map(() => new Frame(tiles))
+                [...Array(depth)].map(() => new Frame(tiles, failSafeTile))
             ));
         this.fillFramesNeighbours();
 

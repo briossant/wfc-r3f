@@ -11,10 +11,11 @@ export default class Frame {
     neiPlusZ = null;
     neiMinusZ = null;
 
-    constructor(tiles) {
+    constructor(tiles, failSafeTile) {
         this.collapsed = false;
         this.tiles = tiles;
         this.tile = null;
+        this.failSafeTile = failSafeTile;
     }
 
 
@@ -46,9 +47,6 @@ export default class Frame {
     propagate = (constraints) => {
         if (this.collapsed) return;
 
-
-        //console.log(constraints, this.tiles)
-
         const new_tiles = [];
         this.tiles.forEach(t => {
             if(constraints.includes(t.id)){
@@ -61,11 +59,13 @@ export default class Frame {
 
         this.tiles = new_tiles;
 
-        // only one choice so the tile can be collapsed
-        if (new_tiles.length === 1) this.collapse();
+        // this case only happen if the tiles rules are wrong
+        if (this.tiles.length === 0) {
+            this.tiles = [this.failSafeTile];
+        }
 
-        // impossible case -> error
-        if (new_tiles.length === 0) throw new Error('propagate: no tiles left');
+        // only one choice so the tile can be collapsed
+        if (this.tiles.length === 1) this.collapse();
 
         // continue propagation
         this.forEachNeighbours((nei, dir) =>
