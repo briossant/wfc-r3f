@@ -8,26 +8,27 @@ export default class {
         this.width = width;
         this.height = height;
         this.depth = depth;
-        this.grid = [...Array(width)].map(() =>
-            [...Array(width)].map(() =>
-                [...Array(depth)].map(() => new Frame(tiles, failSafeTile))
-            ));
+        this.size = width*height*depth;
+        this.grid = [...Array(width*height*depth)].map(() => new Frame(tiles, failSafeTile));
         this.fillFramesNeighbours();
 
         this.allCollapsed = false;
     }
 
-    fillFramesNeighbours = () => this.grid.forEach((row, x) => {
-        row.forEach((line,y) => {
-            line.forEach((frame,z) =>{
-                if(x>0) frame.neiMinusX = this.grid[x-1][y][z];
-                if(y>0) frame.neiMinusY = this.grid[x][y-1][z];
-                if(z>0) frame.neiMinusZ = this.grid[x][y][z-1];
-                if(x<this.width-1) frame.neiPlusX = this.grid[x+1][y][z];
-                if(y<this.height-1) frame.neiPlusY = this.grid[x][y+1][z];
-                if(z<this.depth-1) frame.neiPlusZ = this.grid[x][y][z+1];
-            });
-        });
+    getCoordinates = (i) => [
+        Math.floor(i/this.height/this.depth),
+        Math.floor((i%(this.height*this.depth))/this.height),
+        i % this.depth
+    ];
+
+    fillFramesNeighbours = () => this.grid.forEach((frame, i) => {
+        const [x,y,z] = this.getCoordinates(i);
+        if (x > 0) frame.neiMinusX = this.grid[i-this.height*this.depth];
+        if (y > 0) frame.neiMinusY = this.grid[i-this.depth];
+        if (z > 0) frame.neiMinusZ = this.grid[i-1];
+        if (x < this.width - 1) frame.neiPlusX = this.grid[i+this.height*this.depth];
+        if (y < this.height - 1) frame.neiPlusY = this.grid[i+this.depth];
+        if (z < this.depth - 1) frame.neiPlusZ = this.grid[i+1];
     });
 
 
@@ -40,14 +41,10 @@ export default class {
 
         let eligibleFrames = [];
 
-        for (let x = 0; x < this.width; x++) {
-            for (let y = 0; y < this.width; y++) {
-                for (let z = 0; z < this.depth; z++) {
-                    const frame = this.grid[x][y][z];
-                    if (!frame.collapsed) {
-                        eligibleFrames.push(frame);
-                    }
-                }
+        for (let i = 0; i < this.size; i++) {
+            const frame = this.grid[i];
+            if (!frame.collapsed){
+                eligibleFrames.push(frame);
             }
         }
 
