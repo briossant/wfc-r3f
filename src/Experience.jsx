@@ -8,18 +8,19 @@ import Stone from "./wfc/tiles/mc-set/Stone";
 import Grass from "./wfc/tiles/mc-set/Grass";
 import Flower from "./wfc/tiles/mc-set/Flower";
 
+const wfc = new WFC(12, 8, 12, [
+    Dirt, Stone, Grass, Air, Flower
+], Air);
 
 export default function Experience() {
     const [grid, setGrid] = useState([]);
-    const wfc = new WFC(16, 16, 16, [
-        Dirt, Stone, Grass, Air, Flower
-    ], Air);
+
 
     useEffect(() => {
+        wfc.moveGrid();
         wfc.run();
-        setGrid(wfc.grid);
-    }, [])
-
+        setGrid([...wfc.grid]);
+    }, [grid]);
 
     return <>
 

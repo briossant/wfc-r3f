@@ -3,13 +3,14 @@ import {getRdmInt} from "../utilities";
 
 export default class {
 
-    // todo : switching to a one-d array may be faster
-    constructor(width, height, depth, tiles, failSafeTile) {
+    constructor(width, height, depth, tiles, failsafe) {
         this.width = width;
         this.height = height;
         this.depth = depth;
         this.size = width*height*depth;
-        this.grid = [...Array(width*height*depth)].map(() => new Frame(tiles, failSafeTile));
+        this.tiles = tiles;
+        this.failsafe = failsafe;
+        this.grid = [...Array(width*height*depth)].map(() => new Frame(tiles,failsafe));
         this.fillFramesNeighbours();
 
         this.allCollapsed = false;
@@ -21,16 +22,32 @@ export default class {
         i % this.depth
     ];
 
-    fillFramesNeighbours = () => this.grid.forEach((frame, i) => {
-        const [x,y,z] = this.getCoordinates(i);
-        if (x > 0) frame.neiMinusX = this.grid[i-this.height*this.depth];
-        if (y > 0) frame.neiMinusY = this.grid[i-this.depth];
-        if (z > 0) frame.neiMinusZ = this.grid[i-1];
-        if (x < this.width - 1) frame.neiPlusX = this.grid[i+this.height*this.depth];
-        if (y < this.height - 1) frame.neiPlusY = this.grid[i+this.depth];
-        if (z < this.depth - 1) frame.neiPlusZ = this.grid[i+1];
-    });
+    fillFramesNeighbours = (i = 0, max_i = this.size) => {
+        while (i<max_i) {
+            const [x,y,z] = this.getCoordinates(i);
+            if (x > 0) this.grid[i].neiMinusX = this.grid[i-this.height*this.depth];
+            if (y > 0) this.grid[i].neiMinusY = this.grid[i-this.depth];
+            if (z > 0) this.grid[i].neiMinusZ = this.grid[i-1];
+            if (x < this.width - 1) this.grid[i].neiPlusX = this.grid[i+this.height*this.depth];
+            if (y < this.height - 1) this.grid[i].neiPlusY = this.grid[i+this.depth];
+            if (z < this.depth - 1) this.grid[i].neiPlusZ = this.grid[i+1];
+            i++;
+        }
+    };
 
+
+    moveGrid = () => {
+        if (!this.allCollapsed) return;
+        for (let i = 0; i < this.depth*this.height; i++) {
+            this.grid.unshift(new Frame(this.tiles, this.failsafe));
+        }
+        this.fillFramesNeighbours(0,this.depth*this.height*2);
+        this.grid.splice(this.size, this.depth*this.height);
+        this.allCollapsed = false;
+        for (let i = 0; i < this.depth*this.height; i++) {
+            this.grid[i].propagate(this.grid[i+this.depth*this.height].tile.okMinusX);
+        }
+    }
 
     /**
      * choose a random frame not collapsed in the grid

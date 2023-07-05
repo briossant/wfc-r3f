@@ -2,18 +2,18 @@ import React, { useRef } from "react";
 import { useGLTF } from "@react-three/drei";
 import Tile from "../../Tile";
 
-export default class GroundEdgeMinusZ extends Tile {
-    static id = "GroundEdgePlusZ";
-    static okPlusX = ["GroundEdgeMinusZ"];
+export default class Corner extends Tile {
+    static id = "GroundCornerPlusZ";
+    static okPlusX = [];
     static okPlusY = [];
-    static okPlusZ = ["Ground"];
-    static okMinusX = ["GroundEdgeMinusZ"];
+    static okPlusZ = ["GroundEdgePlusZ"];
+    static okMinusX = ["GroundEdgeMinusX"];
     static okMinusY = [];
     static okMinusZ = [];
 
-    static createReactInstance = (props) => <GroundEdgeMinusZ {...props} />;
+    static createReactInstance = (props) => <Corner {...props} />;
     render() {
-        const { nodes, materials } = useGLTF("/simple-edge.glb");
+        const { nodes, materials } = useGLTF("/simple-corner.glb");
         return (
             <group {...this.props} dispose={null} rotation-y={Math.PI/2}>
                 <mesh
@@ -28,4 +28,4 @@ export default class GroundEdgeMinusZ extends Tile {
     }
 }
 
-useGLTF.preload("/simple-edge.glb");
+useGLTF.preload("/simple-corner.glb");

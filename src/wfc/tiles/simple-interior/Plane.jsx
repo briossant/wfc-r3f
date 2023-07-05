@@ -1,21 +1,21 @@
 import {Component} from "react";
 import {useGLTF} from "@react-three/drei";
 
-export default class WallPlusX extends Component {
-    static id = "WallPlusX";
-    static okPlusX = ["Air"];
-    static okPlusY = ["WallPlusX"];
-    static okPlusZ = ["WallPlusX"];
-    static okMinusX = ["Air"];
-    static okMinusY = ["WallPlusX"];
-    static okMinusZ = ["WallPlusX"];
+export default class Plane extends Component {
+    static id = "Plane";
+    static okPlusX = ["Plane", "Edge"];
+    static okPlusY = ["Air"];
+    static okPlusZ = ["Plane", "Edge"];
+    static okMinusX = ["Plane", "Edge"];
+    static okMinusY = ["Air"];
+    static okMinusZ = ["Plane", "Edge"];
 
-    static createReactInstance = (props) => <Roof {...props}/>;
+    static createReactInstance = (props) => <Plane {...props}/>;
 
     render(){
         const { nodes, materials } = useGLTF("/simple-plane.glb");
         return (
-            <group {...this.props} dispose={null} rotation-x={Math.PI}>
+            <group {...this.props} dispose={null}>
                 <mesh
                     castShadow
                     receiveShadow

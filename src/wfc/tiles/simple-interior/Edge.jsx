@@ -2,20 +2,20 @@ import React, { useRef } from "react";
 import { useGLTF } from "@react-three/drei";
 import Tile from "../../Tile";
 
-export default class RoofEdgeMinusZ extends Tile {
-    static id = "RoofEdgePlusZ";
-    static okPlusX = ["RoofEdgeMinusZ"];
+export default class Edge extends Tile {
+    static id = "GroundEdgePlusZ";
+    static okPlusX = ["GroundEdgePlusZ"];
     static okPlusY = [];
-    static okPlusZ = ["Roof"];
-    static okMinusX = ["RoofEdgeMinusZ"];
+    static okPlusZ = [];
+    static okMinusX = ["GroundEdgePlusZ"];
     static okMinusY = [];
-    static okMinusZ = [];
+    static okMinusZ = ["Ground"];
 
-    static createReactInstance = (props) => <RoofEdgeMinusZ {...props} />;
+    static createReactInstance = (props) => <Edge {...props} />;
     render() {
         const { nodes, materials } = useGLTF("/simple-edge.glb");
         return (
-            <group {...this.props} dispose={null} rotation-y={Math.PI/2}>
+            <group {...this.props} dispose={null}>
                 <mesh
                     castShadow
                     receiveShadow

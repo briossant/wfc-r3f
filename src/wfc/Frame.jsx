@@ -60,9 +60,7 @@ export default class Frame {
         this.tiles = new_tiles;
 
         // this case only happen if the tiles rules are wrong
-        if (this.tiles.length === 0) {
-            this.tiles = [this.failSafeTile];
-        }
+        if (this.tiles.length === 0) this.tiles = [this.failSafeTile];
 
         // only one choice so the tile can be collapsed
         if (this.tiles.length === 1) this.collapse();
