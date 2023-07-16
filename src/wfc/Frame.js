@@ -24,12 +24,18 @@ export default class {
         this.tiles = [this. tile];
     }
 
-    applyConstraints = (constraints) => {
+    getLinkingConstraintIndex = (i) => {
+        return i%2 === 0 ? i+1 : i-1;
+    }
+
+    applyConstraints = (constraints, i) => {
         if (this.collapsed) return;
 
         const new_tiles = [];
 
-        // todo : only keep the possible tiles in the new_tiles array
+        this.tiles.forEach(tile => {
+            if (constraints.some(cons => cons === this.tileset[tile].constraints[this.getLinkingConstraintIndex(i)])) new_tiles.push(tile);
+        });
 
         // no change stop propagation
         if (new_tiles.length === this.tiles.length) return;
@@ -47,10 +53,10 @@ export default class {
 
     propagate = () => {
         for (let i = 0; i < 6; i++) {
-            if(this.neighbours[i].collapsed) continue;
+            if(this.neighbours[i] === undefined || this.neighbours[i].collapsed) continue;
 
-            const constraints = new Set(this.tiles.map(name => this.tileset[name].constraints[i]));
-            this.neighbours[i].applyConstraints(constraints);
+            const constraints = this.tiles.map(name => this.tileset[name].constraints[i]);
+            this.neighbours[i].applyConstraints(constraints, i);
         }
     }
 }

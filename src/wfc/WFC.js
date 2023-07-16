@@ -82,4 +82,15 @@ export default class {
         }
     }
 
+    getGrid = () => {
+        if (!this.allCollapsed) return [];
+        return [...Array(this.width)].map((_,x) =>
+                    [...Array(this.height)].map((_,y) =>
+                        [...Array(this.depth)].map((_,z) =>
+                            this.grid[x*this.height*this.depth+y*this.depth+z].tile
+                        )
+                    )
+                );
+    }
+
 }
