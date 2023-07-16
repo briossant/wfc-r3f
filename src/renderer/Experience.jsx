@@ -3,13 +3,16 @@ import {useEffect, useState} from "react";
 import WFC from "../wfc/WFC";
 import tilesetExample from "../tilesets/tilesetExample";
 import GridDisplayer from "./GridDisplayer";
+import tilesetRotator from "../tilesets/tilesetRotator";
 
-const wfc = new WFC(tilesetExample);
+
+console.log(tilesetExample)
 
 export default function Experience() {
     const [grid, setGrid] = useState([]);
 
     useEffect(() => {
+        const wfc = new WFC(tilesetExample);
         wfc.run();
         setGrid(wfc.getGrid());
     }, []);
@@ -18,7 +21,7 @@ export default function Experience() {
 
         {/*<Perf position="top-left" />*/}
 
-        <GridDisplayer tileset={tilesetExample} grid={grid} getCoo={wfc.getCoordinates} offset={5}/>
+        <GridDisplayer tileset={tilesetExample} grid={grid} offset={5}/>
 
         <OrbitControls makeDefault/>
 

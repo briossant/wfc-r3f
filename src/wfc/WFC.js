@@ -9,6 +9,7 @@ export default class {
         this.depth = depth;
         this.size = width*height*depth;
 
+
         this.tileset = tileset;
         this.tiles = Object.keys(this.tileset);
 

@@ -1,15 +1,18 @@
+import tilesetRotator from "./tilesetRotator";
 
-export default {
+const tilesetExample = {
     "Air": {
         constraints: ["None", "None", "None", "None", "None", "None"], // the tile connection in each direction in the following order : +X -X +Y -Y +Z -Z
-        instantiate: <></> // the r3f model to display
+        instantiate: <></>, // the r3f model to display
+        dontRotate: true
     },
     "Line": {
         constraints: ["Square connection", "Square connection", "None", "None", "None", "None"], // +X -X +Y -Y +Z -Z
         instantiate: <mesh scale={[1,0.5,0.5]}>
             <boxGeometry />
-            <meshBasicMaterial color="orange"/>
-        </mesh>
+            <meshNormalMaterial color="orange"/>
+        </mesh>,
+        dontRotate: false
     },
     "Cross": {
         constraints: ["Square connection", "Square connection", "Square connection", "Square connection", "None", "None"], // +X -X +Y -Y +Z -Z
@@ -22,7 +25,11 @@ export default {
                 <boxGeometry />
                 <meshBasicMaterial color="blue"/>
             </mesh>
-        </group>
+        </group>,
+        dontRotate: false
     }
 }
 
+tilesetRotator(tilesetExample);
+
+export default tilesetExample;
