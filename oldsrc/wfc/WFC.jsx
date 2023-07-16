@@ -1,0 +1,100 @@
+import Frame from "./Frame";
+import {getRdmInt} from "../utilities";
+
+export default class {
+
+    constructor(width, height, depth, tiles, failsafe) {
+        this.width = width;
+        this.height = height;
+        this.depth = depth;
+        this.size = width*height*depth;
+        this.tiles = tiles;
+        this.failsafe = failsafe;
+        this.grid = [...Array(width*height*depth)].map(() => new Frame(tiles,failsafe));
+        this.fillFramesNeighbours();
+
+        this.allCollapsed = false;
+    }
+
+    getCoordinates = (i) => [
+        Math.floor(i/this.height/this.depth),
+        Math.floor((i%(this.height*this.depth))/this.height),
+        i % this.depth
+    ];
+
+    fillFramesNeighbours = (i = 0, max_i = this.size) => {
+        while (i<max_i) {
+            const [x,y,z] = this.getCoordinates(i);
+            if (x > 0) this.grid[i].neiMinusX = this.grid[i-this.height*this.depth];
+            if (y > 0) this.grid[i].neiMinusY = this.grid[i-this.depth];
+            if (z > 0) this.grid[i].neiMinusZ = this.grid[i-1];
+            if (x < this.width - 1) this.grid[i].neiPlusX = this.grid[i+this.height*this.depth];
+            if (y < this.height - 1) this.grid[i].neiPlusY = this.grid[i+this.depth];
+            if (z < this.depth - 1) this.grid[i].neiPlusZ = this.grid[i+1];
+            i++;
+        }
+    };
+
+
+    moveGrid = () => {
+        if (!this.allCollapsed) return;
+        for (let i = 0; i < this.depth*this.height; i++) {
+            this.grid.unshift(new Frame(this.tiles, this.failsafe));
+        }
+        this.fillFramesNeighbours(0,this.depth*this.height*2);
+        this.grid.splice(this.size, this.depth*this.height);
+        this.allCollapsed = false;
+        for (let i = 0; i < this.depth*this.height; i++) {
+            this.grid[i].propagate(this.grid[i+this.depth*this.height].tile.okMinusX);
+        }
+    }
+
+    /**
+     * choose a random frame not collapsed in the grid
+     * */
+    chooseRandomFrame = () => {
+        if(this.allCollapsed) throw new Error('chooseRandomFrame: cannot choose a frame if all of them are collapsed');
+
+        let eligibleFrames = [];
+
+        for (let i = 0; i < this.size; i++) {
+            const frame = this.grid[i];
+            if (!frame.collapsed){
+                eligibleFrames.push(frame);
+            }
+        }
+
+        if(eligibleFrames.length === 0) {
+            this.allCollapsed = true;
+            return;
+        }
+
+        let minTilesCount = Infinity;
+
+        eligibleFrames.forEach((frame) => {
+            const tilesCount = frame.tiles.length;
+            if (tilesCount < minTilesCount) {
+                minTilesCount = tilesCount;
+            }
+        });
+
+        eligibleFrames = eligibleFrames.filter(
+            (frame) => frame.tiles.length === minTilesCount
+        );
+
+        const randomIndex = getRdmInt(0, eligibleFrames.length);
+        return eligibleFrames[randomIndex];
+    }
+
+    run = () => {
+        while (!this.allCollapsed){
+            const frame = this.chooseRandomFrame();
+            if (this.allCollapsed) break;
+            frame.collapse();
+            frame.forEachNeighbours((nei, dir) =>
+                nei.propagate(frame.tile["ok"+dir])
+            );
+        }
+    }
+
+}
