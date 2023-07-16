@@ -3,21 +3,37 @@ import {useEffect, useState} from "react";
 import WFC from "../wfc/WFC";
 import tilesetExample from "../tilesets/tilesetExample";
 import GridDisplayer from "./GridDisplayer";
+import {button, useControls} from 'leva'
+import WfcEl from "./WFC";
 
 export default function Experience() {
-    const [grid, setGrid] = useState([]);
 
-    useEffect(() => {
-        const wfc = new WFC(tilesetExample);
-        wfc.run();
-        setGrid(wfc.getGrid());
-    }, []);
+    const {width, height, depth} = useControls({
+        width: {
+            value: 8,
+            step: 1,
+            min: 4,
+            max: 20,
+        },
+        height: {
+            value: 8,
+            step: 1,
+            min: 4,
+            max: 20,
+        },
+        depth: {
+            value: 8,
+            step: 1,
+            min: 4,
+            max: 20,
+        }
+    })
 
     return <>
 
         {/*<Perf position="top-left" />*/}
 
-        <GridDisplayer tileset={tilesetExample} grid={grid} offset={5}/>
+        <WfcEl tileset={tilesetExample} width={width} height={height} depth={depth}/>
 
         <OrbitControls makeDefault/>
 
