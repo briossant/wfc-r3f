@@ -3,10 +3,6 @@ import {useEffect, useState} from "react";
 import WFC from "../wfc/WFC";
 import tilesetExample from "../tilesets/tilesetExample";
 import GridDisplayer from "./GridDisplayer";
-import tilesetRotator from "../tilesets/tilesetRotator";
-
-
-console.log(tilesetExample)
 
 export default function Experience() {
     const [grid, setGrid] = useState([]);
