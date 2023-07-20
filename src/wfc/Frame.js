@@ -20,8 +20,14 @@ export default class {
             this.tile = this.tiles[0];
             return;
         }
-        this.tile = this.tiles[getRdmInt(0, this.tiles.length)];
-        this.tiles = [this. tile];
+        const hist = [];
+        this.tiles.forEach(tile => {
+            for (let i = 0; i < this.tileset[tile].frequency; i++) {
+                hist.push(tile);
+            }
+        })
+        this.tile = hist[getRdmInt(0, hist.length)];
+        this.tiles = [this.tile];
     }
 
     getLinkingConstraintIndex = (i) => {

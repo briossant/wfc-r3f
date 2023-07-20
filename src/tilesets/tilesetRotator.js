@@ -4,14 +4,14 @@ export default function (tileset) {
 
     keys.forEach(name => {
         tileset[name].rotation = [0, 0, 0];
-        //if (tileset[name].dontRotate) return;
+        if (tileset[name].dontRotate) return;
 
         getAllRotations(tileset[name].constraints).forEach(({rotation, rotationVector}, i) => {
             tileset[name + "###rot" + i] = {
                 constraints: rotation,
                 instantiate: tileset[name].instantiate,
                 rotation: rotationVector,
-                dontRotate: true
+                frequency: tileset[name].frequency
             }
         });
     });
