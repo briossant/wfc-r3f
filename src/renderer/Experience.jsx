@@ -1,9 +1,6 @@
-import {Float, OrbitControls} from '@react-three/drei'
-import {useEffect, useState} from "react";
-import WFC from "../wfc/WFC";
+import { OrbitControls} from '@react-three/drei'
 import tilesetExample from "../tilesets/tilesetExample";
-import GridDisplayer from "./GridDisplayer";
-import {button, useControls} from 'leva'
+import { useControls} from 'leva'
 import WfcEl from "./WFC";
 
 export default function Experience() {

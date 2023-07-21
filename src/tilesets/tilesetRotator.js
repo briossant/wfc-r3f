@@ -1,3 +1,7 @@
+/**
+ * add the rotation of each tiles without dontRotate == true,
+ * done in place
+ */
 export default function (tileset) {
 
     const keys = Object.keys(tileset);
@@ -16,6 +20,7 @@ export default function (tileset) {
         });
     });
 
+    return tileset;
 }
 
 function getAllRotations(arr) {

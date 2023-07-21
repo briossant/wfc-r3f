@@ -49,12 +49,18 @@ export default class {
         this.tiles = new_tiles;
 
         // this case only happen if the tiles rules are wrong
-        if (this.tiles.length === 0) throw new Error('propagate: no tiles left');
+        if (this.tiles.length === 0) this.failsafe();
 
         // only one choice so the tile can be collapsed
         if (this.tiles.length === 1) this.collapse();
 
         this.propagate();
+    }
+
+    failsafe = () => {
+        console.log("ERROR WHILE PROPAGATING: no tile left in the frame")
+        this.tiles = Object.keys(this.tileset);
+        this.collapse();
     }
 
     propagate = () => {
