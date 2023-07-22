@@ -8,9 +8,8 @@ export default function (tileset) {
 
     keys.forEach(name => {
         tileset[name].rotation = [0, 0, 0];
-        if (tileset[name].dontRotate) return;
 
-        getAllRotations(tileset[name].constraints).forEach(({rotation, rotationVector}, i) => {
+        getAllRotations(tileset[name].constraints, tileset[name].rotateOn).forEach(({rotation, rotationVector}, i) => {
             tileset[name + "###rot" + i] = {
                 constraints: rotation,
                 instantiate: tileset[name].instantiate,
@@ -23,40 +22,41 @@ export default function (tileset) {
     return tileset;
 }
 
-function getAllRotations(arr) {
+function getAllRotations(arr, axis) {
     let rotations = [];
 
-    // Rotate about the X-axis.
-    for (let i = 0; i < 3; i++) {
+    if(axis.includes("x")){
+        for (let i = 0; i < 3; i++) {
+            arr = rotateX(arr);
+            let rotationX = {rotation: [...arr], rotationVector: [(i + 1) * -Math.PI / 2, 0, 0]};
+            rotations.push(rotationX);
+        }
         arr = rotateX(arr);
-        let rotationX = {rotation: [...arr], rotationVector: [(i + 1) * -Math.PI / 2, 0, 0]};
-        rotations.push(rotationX);
     }
-    arr = rotateX(arr);
 
-    // While holding this X rotation, rotate about the Y-axis.
-    for (let j = 0; j < 3; j++) {
+    if(axis.includes("y")){
+        for (let j = 0; j < 3; j++) {
+            arr = rotateY(arr);
+            let rotationY = {
+                rotation: [...arr],
+                rotationVector: [0, (j + 1) * Math.PI / 2, 0]
+            };
+            rotations.push(rotationY);
+
+        }
         arr = rotateY(arr);
-        let rotationY = {
-            rotation: [...arr],
-            rotationVector: [0, (j + 1) * Math.PI / 2, 0]
-        };
-        rotations.push(rotationY);
-
-    }
-    arr = rotateY(arr);
-
-    // While holding this X and Y rotation, rotate about the Z-axis.
-    for (let k = 0; k < 3; k++) {
-        arr = rotateZ(arr);
-        let rotationZ = {
-            rotation: [...arr],
-            rotationVector: [0, 0, (k + 1) * -Math.PI / 2]
-        };
-
-        rotations.push(rotationZ);
     }
 
+    if(axis.includes("z")){
+        for (let k = 0; k < 3; k++) {
+            arr = rotateZ(arr);
+            let rotationZ = {
+                rotation: [...arr],
+                rotationVector: [0, 0, (k + 1) * -Math.PI / 2]
+            };
+            rotations.push(rotationZ);
+        }
+    }
 
     return rotations;
 }

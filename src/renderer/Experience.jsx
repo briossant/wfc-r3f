@@ -31,7 +31,7 @@ export default function Experience() {
 
         {/*<Perf position="top-left" />*/}
 
-        <WfcEl tileset={minecraft} width={width} height={height} depth={depth}/>
+        <WfcEl tileset={pipes} width={width} height={height} depth={depth}/>
 
         <OrbitControls makeDefault/>
 
