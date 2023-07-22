@@ -1,4 +1,4 @@
-import tilesetRotator from "./tilesetRotator";
+import tilesetRotator from "../tilesetRotator";
 
 const orange = "#273B09";
 const green = "#002400";

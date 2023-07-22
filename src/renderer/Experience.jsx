@@ -1,7 +1,8 @@
 import { OrbitControls} from '@react-three/drei'
-import tilesetExample from "../tilesets/tilesetExample";
+import pipes from "../tilesets/examples/pipes";
 import { useControls} from 'leva'
 import WfcEl from "./WFC";
+import minecraft from "../tilesets/examples/minecraft";
 
 export default function Experience() {
 
@@ -30,7 +31,7 @@ export default function Experience() {
 
         {/*<Perf position="top-left" />*/}
 
-        <WfcEl tileset={tilesetExample} width={width} height={height} depth={depth}/>
+        <WfcEl tileset={minecraft} width={width} height={height} depth={depth}/>
 
         <OrbitControls makeDefault/>
 

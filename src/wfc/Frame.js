@@ -34,13 +34,27 @@ export default class {
         return i%2 === 0 ? i+1 : i-1;
     }
 
+    isInConstraints = (tile, cons, i) => {
+        if (!Array.isArray(cons)) cons = [cons];
+
+        for (let j = 0; j < cons.length; j++) {
+            if (Array.isArray(this.tileset[tile].constraints[i])){
+                if(this.tileset[tile].constraints[i].includes(cons[j])) return true;
+            }else{
+                if(cons[j] === this.tileset[tile].constraints[i]) return true
+            }
+        }
+
+        return false;
+    }
+
     applyConstraints = (constraints, i) => {
         if (this.collapsed) return;
 
         const new_tiles = [];
 
         this.tiles.forEach(tile => {
-            if (constraints.some(cons => cons === this.tileset[tile].constraints[this.getLinkingConstraintIndex(i)])) new_tiles.push(tile);
+            if (constraints.some(cons => this.isInConstraints(tile, cons, this.getLinkingConstraintIndex(i)))) new_tiles.push(tile);
         });
 
         // no change stop propagation
