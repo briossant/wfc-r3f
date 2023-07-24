@@ -4,6 +4,7 @@ import { useControls} from 'leva'
 import WfcEl from "./WFC";
 import minecraft from "../tilesets/examples/minecraft";
 import stairs from "../tilesets/examples/stairs";
+import stairs2 from "../tilesets/examples/stairs2";
 
 export default function Experience() {
 
@@ -32,7 +33,8 @@ export default function Experience() {
 
         {/*<Perf position="top-left" />*/}
 
-        <WfcEl tileset={stairs} width={width} height={height} depth={depth}/>
+        <WfcEl tileset={stairs2} width={width} height={height} depth={depth}/>
+        <axesHelper args={[20, 20, 20]} />
 
         <OrbitControls makeDefault/>
 
