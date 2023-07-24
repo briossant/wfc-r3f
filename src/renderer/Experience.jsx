@@ -3,6 +3,7 @@ import pipes from "../tilesets/examples/pipes";
 import { useControls} from 'leva'
 import WfcEl from "./WFC";
 import minecraft from "../tilesets/examples/minecraft";
+import stairs from "../tilesets/examples/stairs";
 
 export default function Experience() {
 
@@ -31,7 +32,7 @@ export default function Experience() {
 
         {/*<Perf position="top-left" />*/}
 
-        <WfcEl tileset={pipes} width={width} height={height} depth={depth}/>
+        <WfcEl tileset={stairs} width={width} height={height} depth={depth}/>
 
         <OrbitControls makeDefault/>
 
