@@ -46,12 +46,12 @@ export default tilesetRotator({
         constraints: ["floor#1234", "floor#1234", "none", "none", "none", "none"], //  +X -X +Y -Y +Z -Z
         instantiate: <Plane color={"#565656"}/>,
         frequency: 1,
-        rotateOn: "xyz"
+        rotateOn: "123456"
     },
     "stairs": {
         constraints: ["floor#1234", "none", "none", "floor#3412", "none", "none"], //  +X -X +Y -Y +Z -Z
         instantiate: <Stairs color={"#565656"}/>,
-        frequency: 2,
-        rotateOn: "xyz"
+        frequency: 1,
+        rotateOn: "123456"
     },
 });

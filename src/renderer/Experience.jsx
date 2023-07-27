@@ -1,10 +1,11 @@
-import { OrbitControls} from '@react-three/drei'
+import {OrbitControls} from '@react-three/drei'
 import pipes from "../tilesets/examples/pipes";
 import { useControls} from 'leva'
 import WfcEl from "./WFC";
 import minecraft from "../tilesets/examples/minecraft";
 import stairs from "../tilesets/examples/stairs";
 import stairs2 from "../tilesets/examples/stairs2";
+import gameboy from "../tilesets/examples/gameboy";
 
 export default function Experience() {
 
@@ -32,8 +33,8 @@ export default function Experience() {
     return <>
 
         {/*<Perf position="top-left" />*/}
+        <WfcEl tileset={gameboy} width={width} height={height} depth={depth}/>
 
-        <WfcEl tileset={stairs2} width={width} height={height} depth={depth}/>
         <axesHelper args={[20, 20, 20]} />
 
         <OrbitControls makeDefault/>

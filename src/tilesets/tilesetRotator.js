@@ -27,38 +27,79 @@ export default function (tileset) {
 function getAllRotations(arr, axis) {
     let rotations = [];
 
-    if (axis.includes("x")){
+    if (axis.includes("1")){
         for (let i = 0; i < 3; i++) {
             arr = rotateX(arr);
-            let rotationX = {
+            let rotation = {
                 rotation: [...arr],
                 rotationVector: [(i + 1) * -Math.PI / 2, 0, 0]
             };
-            rotations.push(rotationX);
+            rotations.push(rotation);
         }
         arr = rotateX(arr);
     }
 
-    if (axis.includes("y")){
-        for (let j = 0; j < 3; j++) {
-            arr = rotateY(arr);
-            let rotationY = {
+    arr = rotateY(arr);
+    console.log(arr)
+    if (axis.includes("2")){
+        for (let j = 0; j < 4; j++) {
+            let rotation = {
                 rotation: [...arr],
-                rotationVector: [0, (j + 1) * Math.PI / 2, 0]
+                rotationVector: [0, -Math.PI / 2,  j * -Math.PI / 2]
             };
-            rotations.push(rotationY);
+            rotations.push(rotation);
+            arr = rotateZ(arr);
+            console.log(arr)
         }
-        arr = rotateY(arr);
     }
 
-    if (axis.includes("z")){
-        for (let k = 0; k < 3; k++) {
-            arr = rotateZ(arr);
-            let rotationZ = {
+    arr = rotateY(arr);
+    if (axis.includes("3")){
+        for (let j = 0; j < 4; j++) {
+            let rotation = {
                 rotation: [...arr],
-                rotationVector: [0, 0, (k + 1) * -Math.PI / 2]
+                rotationVector: [ j * -Math.PI / 2, Math.PI, 0]
             };
-            rotations.push(rotationZ);
+            rotations.push(rotation);
+            arr = rotateX(arr);
+        }
+    }
+
+    arr = rotateY(arr);
+    if (axis.includes("4")){
+        for (let j = 0; j < 4; j++) {
+            let rotation = {
+                rotation: [...arr],
+                rotationVector: [0, 3 * Math.PI / 2, j * -Math.PI / 2]
+            };
+            rotations.push(rotation);
+            arr = rotateZ(arr);
+        }
+    }
+
+    arr = rotateY(arr);
+    arr = rotateZ(arr);
+    if (axis.includes("5")){
+        for (let j = 0; j < 4; j++) {
+            let rotation = {
+                rotation: [...arr],
+                rotationVector: [0, j * Math.PI / 2, -Math.PI / 2]
+            };
+            rotations.push(rotation);
+            arr = rotateY(arr);
+        }
+    }
+
+    arr = rotateZ(arr);
+    arr = rotateZ(arr);
+    if (axis.includes("6")){
+        for (let j = 0; j < 4; j++) {
+            let rotation = {
+                rotation: [...arr],
+                rotationVector: [0, j * Math.PI / 2, 3 * -Math.PI / 2]
+            };
+            rotations.push(rotation);
+            arr = rotateY(arr);
         }
     }
 

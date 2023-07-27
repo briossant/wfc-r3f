@@ -10,6 +10,9 @@ export default {
     root: 'src/',
     publicDir: "../public/",
     base: './',
+    optimizeDeps: {
+        include: ['react-dom'],
+    },
     server:
     {
         host: true,

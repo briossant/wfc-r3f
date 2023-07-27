@@ -36,39 +36,39 @@ export default tilesetRotator({
         constraints: ["Red connection", "Red connection", "None", "None", "None", "None"], // +X -X +Y -Y +Z -Z
         instantiate: <Line color={red}/>,
         frequency: 1,
-        rotateOn: "xyz"
+        rotateOn: "1235"
     },
     "Turn Red": {
         constraints: ["Red connection", "None", "Red connection", "None", "None", "None"], // +X -X +Y -Y +Z -Z
         instantiate: <Turn color={red}/>,
         frequency: 1,
-        rotateOn: "xyz"
+        rotateOn: "1235"
     },
 
     "Line Yellow": {
         constraints: ["Yellow connection", "Yellow connection", "None", "None", "None", "None"], // +X -X +Y -Y +Z -Z
         instantiate: <Line color={orange}/>,
         frequency: 1,
-        rotateOn: "xyz"
+        rotateOn: "13"
     },
     "Turn Yellow": {
         constraints: ["Yellow connection", "None", "Yellow connection", "None", "None", "None"], // +X -X +Y -Y +Z -Z
         instantiate: <Turn color={orange}/>,
         frequency: 1,
-        rotateOn: "xyz"
+        rotateOn: "13"
     },
 
     "Line Green": {
         constraints: ["Green connection", "Green connection", "None", "None", "None", "None"], // +X -X +Y -Y +Z -Z
         instantiate: <Line color={green}/>,
         frequency: 1,
-        rotateOn: "xyz"
+        rotateOn: "13"
     },
     "Turn Green": {
         constraints: ["Green connection", "None", "Green connection", "None", "None", "None"], // +X -X +Y -Y +Z -Z
         instantiate: <Turn color={green}/>,
         frequency: 1,
-        rotateOn: "xyz"
+        rotateOn: "13"
     }
 });
 
