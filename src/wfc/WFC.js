@@ -10,12 +10,30 @@ export default class {
         this.size = width*height*depth;
 
 
-        this.tileset = tileset;
+        this.tileset = tileset.tiles;
         this.tiles = Object.keys(this.tileset);
 
-        this.grid = [...Array(this.size)].map(() => new Frame(this.tiles, this.tileset));
+        this.grid = [...Array(this.size)].map(() => new Frame(this.tiles, this.tileset, tileset.failsafeTile));
         this.fillFramesNeighbours();
         this.allCollapsed = false;
+
+        if (tileset.borderConstraints.length > 0){
+            this.applyBorderConstraints(tileset.borderConstraints)
+        }
+    }
+
+    applyBorderConstraints = (borderConstraints) => {
+        let i =0;
+        while (i<this.size) {
+            const [x,y,z] = this.getCoordinates(i);
+            if (x === 0) this.grid[i].applyConstraints(borderConstraints, 0);
+            if (y === 0) this.grid[i].applyConstraints(borderConstraints, 2);
+            if (z === 0) this.grid[i].applyConstraints(borderConstraints, 4);
+            if (x === this.width - 1) this.grid[i].applyConstraints(borderConstraints, 1);
+            if (y === this.height - 1) this.grid[i].applyConstraints(borderConstraints, 3);
+            if (z === this.depth - 1) this.grid[i].applyConstraints(borderConstraints, 5);
+            i++;
+        }
     }
 
     getCoordinates = (i) => [
@@ -57,24 +75,25 @@ export default class {
             return;
         }
 
-        let minTilesCount = Infinity;
+        let minEntropie = Infinity;
+        let chosenFrame;
 
         eligibleFrames.forEach((frame) => {
-            const tilesCount = frame.tiles.length;
-            if (tilesCount < minTilesCount) {
-                minTilesCount = tilesCount;
+            if (frame.entropy < minEntropie) {
+                minEntropie = frame.entropy;
+                chosenFrame = frame;
             }
         });
 
-        eligibleFrames = eligibleFrames.filter(
-            (frame) => frame.tiles.length === minTilesCount
-        );
-
-        const randomIndex = getRdmInt(0, eligibleFrames.length);
-        return eligibleFrames[randomIndex];
+        return chosenFrame;
     }
 
-    run = () => {
+    run = (forcedStart = undefined) => {
+        if (forcedStart){
+            this.grid[forcedStart.index].tiles = forcedStart.tiles;
+            this.grid[forcedStart.index].collapse();
+            this.grid[forcedStart.index].propagate();
+        }
         while (!this.allCollapsed){
             const frame = this.chooseRandomFrame();
             if (this.allCollapsed) break;

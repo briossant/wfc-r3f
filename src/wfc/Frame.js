@@ -6,13 +6,22 @@ export default class {
     //neighbours
     neighbours = [...Array(6)];
 
-    constructor(tiles, tileset) {
+    constructor(tiles, tileset, failsafetile) {
         this.collapsed = false;
         this.tileset = tileset;
         this.tiles = tiles;
         this.tile = null;
+        this.failsafetile = failsafetile;
+        this.entropy = 0;
+        this.updateEntropie();
     }
 
+    updateEntropie = () => {
+        this.entropy = 0;
+        this.tiles.forEach(tile => {
+            this.entropy += Math.log2(1+this.tileset[tile].frequency);
+        });
+    }
 
     collapse = () => {
         this.collapsed = true;
@@ -66,14 +75,15 @@ export default class {
         if (this.tiles.length === 0) this.failsafe();
 
         // only one choice so the tile can be collapsed
-        if (this.tiles.length === 1) this.collapse();
+        else if (this.tiles.length === 1) this.collapse();
+        else this.updateEntropie();
 
         this.propagate();
     }
 
     failsafe = () => {
         console.log("ERROR WHILE PROPAGATING: no tile left in the frame")
-        this.tiles = Object.keys(this.tileset);
+        this.tiles = [this.failsafetile];
         this.collapse();
     }
 

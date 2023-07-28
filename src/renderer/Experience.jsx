@@ -33,12 +33,12 @@ export default function Experience() {
     return <>
 
         {/*<Perf position="top-left" />*/}
-        <WfcEl tileset={gameboy} width={width} height={height} depth={depth}/>
+        <WfcEl  tileset={gameboy} width={width} height={height} depth={depth}/>
 
         <axesHelper args={[20, 20, 20]} />
 
         <OrbitControls makeDefault/>
-
+        <directionalLight position={[-1, -2, -3]} intensity={0.3} shadow-normalBias={0.04}/>
         <directionalLight castShadow position={[1, 2, 3]} intensity={1.5} shadow-normalBias={0.04}/>
         <ambientLight intensity={0.5}/>
 

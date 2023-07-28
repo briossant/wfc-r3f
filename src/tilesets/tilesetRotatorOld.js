@@ -27,77 +27,38 @@ export default function (tileset) {
 function getAllRotations(arr, axis) {
     let rotations = [];
 
-    if (axis.includes("1")){
+    if (axis.includes("x")){
         for (let i = 0; i < 3; i++) {
             arr = rotateX(arr);
-            let rotation = {
+            let rotationX = {
                 rotation: [...arr],
                 rotationVector: [(i + 1) * -Math.PI / 2, 0, 0]
             };
-            rotations.push(rotation);
+            rotations.push(rotationX);
         }
         arr = rotateX(arr);
     }
 
-    arr = rotateY(arr);
-    if (axis.includes("2")){
-        for (let j = 0; j < 4; j++) {
-            let rotation = {
-                rotation: [...arr],
-                rotationVector: [0, -Math.PI / 2,  j * -Math.PI / 2]
-            };
-            rotations.push(rotation);
-            arr = rotateZ(arr);
-        }
-    }
-
-    arr = rotateY(arr);
-    if (axis.includes("3")){
-        for (let j = 0; j < 4; j++) {
-            let rotation = {
-                rotation: [...arr],
-                rotationVector: [ j * -Math.PI / 2, Math.PI, 0]
-            };
-            rotations.push(rotation);
-            arr = rotateX(arr);
-        }
-    }
-
-    arr = rotateY(arr);
-    if (axis.includes("4")){
-        for (let j = 0; j < 4; j++) {
-            let rotation = {
-                rotation: [...arr],
-                rotationVector: [0, 3 * Math.PI / 2, j * -Math.PI / 2]
-            };
-            rotations.push(rotation);
-            arr = rotateZ(arr);
-        }
-    }
-
-    arr = rotateY(arr);
-    arr = rotateZ(arr);
-    if (axis.includes("5")){
-        for (let j = 0; j < 4; j++) {
-            let rotation = {
-                rotation: [...arr],
-                rotationVector: [0, j * Math.PI / 2, -Math.PI / 2]
-            };
-            rotations.push(rotation);
+    if (axis.includes("y")){
+        for (let j = 0; j < 3; j++) {
             arr = rotateY(arr);
+            let rotationY = {
+                rotation: [...arr],
+                rotationVector: [0, (j + 1) * Math.PI / 2, 0]
+            };
+            rotations.push(rotationY);
         }
+        arr = rotateY(arr);
     }
 
-    arr = rotateZ(arr);
-    arr = rotateZ(arr);
-    if (axis.includes("6")){
-        for (let j = 0; j < 4; j++) {
-            let rotation = {
+    if (axis.includes("z")){
+        for (let k = 0; k < 3; k++) {
+            arr = rotateZ(arr);
+            let rotationZ = {
                 rotation: [...arr],
-                rotationVector: [0, j * Math.PI / 2, 3 * -Math.PI / 2]
+                rotationVector: [0, 0, (k + 1) * -Math.PI / 2]
             };
-            rotations.push(rotation);
-            arr = rotateY(arr);
+            rotations.push(rotationZ);
         }
     }
 
@@ -121,16 +82,7 @@ function transformString(str) {
 }
 
 function checkIfTransfNeeded(rotated, i) {
-    if(Array.isArray(rotated[i])) {
-        const nk = [];
-        rotated[i].forEach(rt => {
-            if (rt.length > 4 && rt[rt.length - 5] === "#"){
-                rt = transformString(rt);
-            }
-            nk.push(rt)
-        })
-        rotated[i] = nk;
-    }else if (rotated[i].length > 4 && rotated[i][rotated[i].length - 5] === "#"){
+    if (rotated[i].length > 4 && rotated[i][rotated[i].length - 5] === "#"){
         rotated[i] = transformString(rotated[i]);
     }
 }

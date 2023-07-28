@@ -9,11 +9,11 @@ export default function WfcEl({tileset, width, height, depth}) {
     const wfc = new WFC(tileset, width, height, depth);
 
     useEffect(() => {
-        wfc.run();
+        wfc.run(tileset.forcedStart);
         setGrid(wfc.getGrid());
     }, [width, height, depth]);
 
     return <>
-        <GridDisplayer tileset={tileset} grid={grid} offset={4}/>
+        <GridDisplayer tileset={tileset.tiles} grid={grid} offset={4}/>
     </>
 }
