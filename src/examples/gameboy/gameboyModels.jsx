@@ -246,6 +246,22 @@ export function FlowerBottomBall(props) {
     );
 }
 
+export function CubicMess(props) {
+    const { nodes, materials } = useGLTF("/models/gameboy/cubicMess.glb");
+    return (
+        <group {...props} scale={1} dispose={null}>
+            <mesh
+                castShadow
+                receiveShadow
+                geometry={nodes.CubicMess2001.geometry}
+                material={materials.transparent}
+                position={[-0.9, -0.9, 0.9]}
+            />
+        </group>
+    );
+}
+
+useGLTF.preload("/models/gameboy/cubicMess.glb");
 useGLTF.preload("/models/gameboy/FlowerBottomBall.glb");
 useGLTF.preload("/models/gameboy/FlowerBall.glb");
 useGLTF.preload("/models/gameboy/Flower.glb");

@@ -31,17 +31,12 @@ export default function Experience() {
         {/*<Perf position="top-left" />*/}
         <WfcEl tileset={gameboy} width={width} height={height} depth={depth}/>
 
-        <Environment
-            background
-            files={"/environmentMaps/purple.hdr"}
-            resolution={32}
-            />
 
         {/*<axesHelper args={[20, 20, 20]}/>*/}
 
         <OrbitControls makeDefault/>
-        <directionalLight position={[-1, -2, -3]} intensity={0.3} shadow-normalBias={0.04} color={"#b700ff"}/>
-        <directionalLight castShadow position={[1, 2, 3]} intensity={1.5} shadow-normalBias={0.04} color={"#35ff00"}/>
+        <directionalLight color={"#ffffff"} position={[-1, -2, -3]} intensity={0.3} shadow-normalBias={0.04}/>
+        <directionalLight color={"#ffffff"} castShadow position={[1, 2, 3]} intensity={1.5} shadow-normalBias={0.04}/>
         <ambientLight intensity={0.5}/>
 
     </>;
