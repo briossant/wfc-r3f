@@ -1,4 +1,4 @@
-import tilesetRotator from "./tilesetRotator";
+import tilesetRotator from "../tilesetRotator";
 
 
 export default tilesetRotator({
