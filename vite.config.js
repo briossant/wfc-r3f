@@ -7,8 +7,8 @@ export default {
     [
         react()
     ],
-    root: 'src/',
-    publicDir: "../public/",
+    root: 'src/examples/gameboy/',
+    publicDir: "../../../public/",
     base: './',
     optimizeDeps: {
         include: ['react-dom'],
@@ -20,7 +20,7 @@ export default {
     },
     build:
     {
-        outDir: '../dist',
+        outDir: '../../../dist',
         emptyOutDir: true,
         sourcemap: true
     }

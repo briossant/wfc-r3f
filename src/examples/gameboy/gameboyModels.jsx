@@ -1,7 +1,7 @@
 import {useGLTF} from "@react-three/drei";
 
 export function Screen(props) {
-    const { nodes, materials } = useGLTF("/models/gameboy/gameboyScreen.glb");
+    const { nodes, materials } = useGLTF("./models/gameboy/gameboyScreen.glb");
     return (
         <group {...props} scale={0.5} dispose={null}>
             <group rotation={[0, Math.PI / 2, 0]}>
@@ -29,7 +29,7 @@ export function Screen(props) {
 }
 
 export function Buttons(props) {
-    const { nodes, materials } = useGLTF("/models/gameboy/gameboyButtons.glb");
+    const { nodes, materials } = useGLTF("./models/gameboy/gameboyButtons.glb");
     return (
         <group {...props} scale={0.5} dispose={null}>
             <mesh
@@ -62,7 +62,7 @@ export function Buttons(props) {
 }
 
 export function Lcon(props) {
-    const { nodes, materials } = useGLTF("/models/gameboy/gameboyL.glb");
+    const { nodes, materials } = useGLTF("./models/gameboy/gameboyL.glb");
     return (
         <group {...props} scale={0.5} dispose={null}>
             <mesh
@@ -77,7 +77,7 @@ export function Lcon(props) {
 }
 
 export function FloorCon(props) {
-    const { nodes, materials } = useGLTF("/models/gameboy/gameboyFloorCon.glb");
+    const { nodes, materials } = useGLTF("./models/gameboy/gameboyFloorCon.glb");
     return (
         <group {...props} scale={0.5} dispose={null}>
             <mesh
@@ -91,7 +91,7 @@ export function FloorCon(props) {
 }
 
 export function Floor(props) {
-    const { nodes, materials } = useGLTF("/models/gameboy/gameboyFloor.glb");
+    const { nodes, materials } = useGLTF("./models/gameboy/gameboyFloor.glb");
     return (
         <group {...props} scale={0.5} dispose={null}>
             <mesh
@@ -107,7 +107,7 @@ export function Floor(props) {
 }
 
 export function Flower(props) {
-    const { nodes, materials } = useGLTF("/models/gameboy/Flower.glb");
+    const { nodes, materials } = useGLTF("./models/gameboy/Flower.glb");
     return (
         <group {...props} scale={0.5} dispose={null}>
             <mesh
@@ -207,7 +207,7 @@ export function Flower(props) {
 }
 
 export function FlowerBall(props) {
-    const { nodes, materials } = useGLTF("/models/gameboy/FlowerBall.glb");
+    const { nodes, materials } = useGLTF("./models/gameboy/FlowerBall.glb");
     return (
         <group {...props} scale={0.5} dispose={null}>
             <mesh
@@ -227,7 +227,7 @@ export function FlowerBall(props) {
 }
 
 export function FlowerBottomBall(props) {
-    const { nodes, materials } = useGLTF("/models/gameboy/FlowerBottomBall.glb");
+    const { nodes, materials } = useGLTF("./models/gameboy/FlowerBottomBall.glb");
     return (
         <group {...props} scale={0.5} dispose={null}>
             <mesh
@@ -247,7 +247,7 @@ export function FlowerBottomBall(props) {
 }
 
 export function CubicMess(props) {
-    const { nodes, materials } = useGLTF("/models/gameboy/cubicMess.glb");
+    const { nodes, materials } = useGLTF("./models/gameboy/cubicMess.glb");
     return (
         <group {...props} scale={1 + Math.random()*0.1} dispose={null}>
             <mesh
@@ -262,7 +262,7 @@ export function CubicMess(props) {
 }
 
 export function Empty(props) {
-    const { nodes, materials } = useGLTF("/models/gameboy/gameboyEmpty.glb");
+    const { nodes, materials } = useGLTF("./models/gameboy/gameboyEmpty.glb");
     return (
         <group {...props} scale={0.5} dispose={null}>
             <mesh
@@ -278,7 +278,7 @@ export function Empty(props) {
 }
 
 export function Cross(props) {
-    const { nodes, materials } = useGLTF("/models/gameboy/gameboyCross.glb");
+    const { nodes, materials } = useGLTF("./models/gameboy/gameboyCross.glb");
     return (
         <group {...props} scale={0.5} dispose={null}>
             <mesh
@@ -308,7 +308,7 @@ export function Cross(props) {
 }
 
 export function Twist(props) {
-    const { nodes, materials } = useGLTF("/models/gameboy/gameboyTwist.glb");
+    const { nodes, materials } = useGLTF("./models/gameboy/gameboyTwist.glb");
     return (
         <group {...props} scale={0.5} dispose={null}>
             <mesh
@@ -323,17 +323,17 @@ export function Twist(props) {
     );
 }
 
-useGLTF.preload("/models/gameboy/gameboyTwist.glb");
-useGLTF.preload("/models/gameboy/gameboyCross.glb");
-useGLTF.preload("/models/gameboy/gameboyEmpty.glb");
-useGLTF.preload("/models/gameboy/cubicMess.glb");
-useGLTF.preload("/models/gameboy/FlowerBottomBall.glb");
-useGLTF.preload("/models/gameboy/FlowerBall.glb");
-useGLTF.preload("/models/gameboy/Flower.glb");
-useGLTF.preload("/models/gameboy/gameboyFloor.glb");
-useGLTF.preload("/models/gameboy/gameboyFloorCon.glb");
-useGLTF.preload("/models/gameboy/gameboyL.glb");
-useGLTF.preload("/models/gameboy/gameboyButtons.glb");
-useGLTF.preload("/models/gameboy/gameboyScreen.glb");
+useGLTF.preload("./models/gameboy/gameboyTwist.glb");
+useGLTF.preload("./models/gameboy/gameboyCross.glb");
+useGLTF.preload("./models/gameboy/gameboyEmpty.glb");
+useGLTF.preload("./models/gameboy/cubicMess.glb");
+useGLTF.preload("./models/gameboy/FlowerBottomBall.glb");
+useGLTF.preload("./models/gameboy/FlowerBall.glb");
+useGLTF.preload("./models/gameboy/Flower.glb");
+useGLTF.preload("./models/gameboy/gameboyFloor.glb");
+useGLTF.preload("./models/gameboy/gameboyFloorCon.glb");
+useGLTF.preload("./models/gameboy/gameboyL.glb");
+useGLTF.preload("./models/gameboy/gameboyButtons.glb");
+useGLTF.preload("./models/gameboy/gameboyScreen.glb");
 
 

@@ -20,6 +20,8 @@
 ### Gameboy
 root: src/examples/gameboy/
 
+link: https://briossant.com/3d-demo/007-wave-function-collapse/
+
 [...]
 
 ## Contributing

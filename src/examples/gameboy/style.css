@@ -16,4 +16,28 @@ body,
 html{
     background-color: #270d21;
 }
+a.not-a{
+    cursor:pointer;
+    z-index: 100;
+    color: #ffffff;
+    text-decoration: none;
+    font-family: "monospace", monospace;
+    font-size: 2.2vmin;
+    text-shadow: 0 0 5px #C8C8C8;
+
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+.back{
+    position: fixed;
+    top:10px;left:1vmin;
+}
+.home{
+    position: fixed;
+    top:10px;left:12.6vmin;
+    color: rgba(184,184,184,0);
+}
 
