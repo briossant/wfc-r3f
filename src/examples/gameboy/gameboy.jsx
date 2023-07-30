@@ -10,7 +10,7 @@ import {
     FlowerBall,
     FlowerBottomBall,
     Lcon,
-    Screen
+    Screen, Twist
 } from "./gameboyModels";
 
 const all_con = ["none"];
@@ -20,7 +20,7 @@ for (let i = 0; i < 12; i++) {
 
 export default {
     failsafeTile: "Air",
-    borderConstraints: ["", "ground", "none"],
+    borderConstraints: ["ground", "none"],
     forcedStart: undefined,
     tiles: tilesetRotatorOld({
         "Air": {
@@ -53,23 +53,17 @@ export default {
             frequency: 5,
             rotateOn: "y"
         },
+        "Twist": {
+            constraints: ["none", "none", "console#0101", "console#1010", "none", "none"], //  +X -X +Y -Y +Z -Z
+            instantiate: <Twist/>,
+            frequency: 5,
+            rotateOn: "y"
+        },
         "Lcon": {
             constraints: ["none", "none", "console#1010", "none", "console#1010", "none"], //  +X -X +Y -Y +Z -Z
             instantiate: <Lcon/>,
             frequency: 3,
             rotateOn: "xy"
-        },
-        "Floor": {
-            constraints: ["ground", "ground", "none", "", "ground", "ground"], //  +X -X +Y -Y +Z -Z
-            instantiate: <Floor/>,
-            frequency: 0,
-            rotateOn: ""
-        },
-        "FloorCon": {
-            constraints: ["ground", "ground", "console#1010", "", "ground", "ground"], //  +X -X +Y -Y +Z -Z
-            instantiate: <FloorCon/>,
-            frequency: 0,
-            rotateOn: "y"
         },
         "Flower": {
             constraints: ["none", "none", ["none", "flower"], "flower", "none", "none"], //  +X -X +Y -Y +Z -Z

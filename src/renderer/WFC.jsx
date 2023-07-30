@@ -4,7 +4,7 @@ import WFC from "../wfc/WFC";
 import GridDisplayer from "./GridDisplayer";
 import {button, useControls} from 'leva'
 
-export default function WfcEl({tileset, width, height, depth}) {
+export default function WfcEl({tileset, width, height, depth, offset}) {
     const [grid, setGrid] = useState([]);
     const wfc = new WFC(tileset, width, height, depth);
 
@@ -14,6 +14,6 @@ export default function WfcEl({tileset, width, height, depth}) {
     }, [width, height, depth]);
 
     return <>
-        <GridDisplayer tileset={tileset.tiles} grid={grid} offset={4}/>
+        <GridDisplayer tileset={tileset.tiles} grid={grid} offset={offset}/>
     </>
 }

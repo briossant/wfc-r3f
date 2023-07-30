@@ -307,6 +307,23 @@ export function Cross(props) {
     );
 }
 
+export function Twist(props) {
+    const { nodes, materials } = useGLTF("/models/gameboy/gameboyTwist.glb");
+    return (
+        <group {...props} scale={0.5} dispose={null}>
+            <mesh
+                castShadow
+                receiveShadow
+                geometry={nodes.twsit.geometry}
+                material={materials.WhitePlastic}
+                position={[-0.004, 0, 0]}
+                scale={[1, 1, 0.25]}
+            />
+        </group>
+    );
+}
+
+useGLTF.preload("/models/gameboy/gameboyTwist.glb");
 useGLTF.preload("/models/gameboy/gameboyCross.glb");
 useGLTF.preload("/models/gameboy/gameboyEmpty.glb");
 useGLTF.preload("/models/gameboy/cubicMess.glb");

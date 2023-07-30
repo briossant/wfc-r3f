@@ -1,12 +1,16 @@
 import {OrbitControls, Environment} from '@react-three/drei'
-import {useControls} from 'leva'
+import {button, useControls} from 'leva'
 import WfcEl from "../../renderer/WFC";
 import gameboy from "./gameboy";
 import {Bloom, DepthOfField, EffectComposer, Noise, Scanline, Vignette} from "@react-three/postprocessing";
 import {BlendFunction} from "postprocessing";
 import {Perf} from "r3f-perf";
+import {useState} from "react";
 
 export default function Experience() {
+
+    const [seed, setSeed] = useState(42);
+
 
     const {width, height, depth} = useControls({
         width: {
@@ -16,7 +20,7 @@ export default function Experience() {
             max: 20,
         },
         height: {
-            value: 8,
+            value: 12,
             step: 1,
             min: 4,
             max: 20,
@@ -26,7 +30,8 @@ export default function Experience() {
             step: 1,
             min: 4,
             max: 20,
-        }
+        },
+        ReGenerate: button(() => { setSeed(Math.random()) }),
     })
 
     return <>
@@ -41,8 +46,8 @@ export default function Experience() {
             />*/}
         </EffectComposer>
 
-        <Perf position="top-left" />
-        <WfcEl tileset={gameboy} width={width} height={height} depth={depth}/>
+        {/*<Perf position="top-left" />*/}
+        <WfcEl key={seed} tileset={gameboy} width={width} height={height} depth={depth} offset={5}/>
 
 
         {/*<axesHelper args={[20, 20, 20]}/>*/}

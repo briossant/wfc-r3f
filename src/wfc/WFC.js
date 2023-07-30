@@ -23,7 +23,7 @@ export default class {
     }
 
     applyBorderConstraints = (borderConstraints) => {
-        let i =0;
+        let i = 0;
         while (i<this.size) {
             const [x,y,z] = this.getCoordinates(i);
             if (x === 0) this.grid[i].applyConstraints(borderConstraints, 0);
@@ -34,11 +34,12 @@ export default class {
             if (z === this.depth - 1) this.grid[i].applyConstraints(borderConstraints, 5);
             i++;
         }
+
     }
 
     getCoordinates = (i) => [
         Math.floor(i/this.height/this.depth),
-        Math.floor((i%(this.height*this.depth))/this.height),
+        Math.floor((i%(this.height*this.depth))/this.depth),
         i % this.depth
     ];
 

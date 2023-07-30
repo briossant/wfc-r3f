@@ -82,7 +82,7 @@ export default class {
     }
 
     failsafe = () => {
-        console.log("ERROR WHILE PROPAGATING: no tile left in the frame")
+        console.log("ERROR WHILE PROPAGATING: no tile left in the frame - ("+this.neighbours.join("|")+")")
         this.tiles = [this.failsafetile];
         this.collapse();
     }
