@@ -1,6 +1,17 @@
 import tilesetRotator from "../../tilesets/tilesetRotator";
 import tilesetRotatorOld from "../../tilesets/tilesetRotatorOld";
-import {Buttons, CubicMess, Floor, FloorCon, Flower, FlowerBall, FlowerBottomBall, Lcon, Screen} from "./gameboyModels";
+import {
+    Buttons, Cross,
+    CubicMess,
+    Empty,
+    Floor,
+    FloorCon,
+    Flower,
+    FlowerBall,
+    FlowerBottomBall,
+    Lcon,
+    Screen
+} from "./gameboyModels";
 
 const all_con = ["none"];
 for (let i = 0; i < 12; i++) {
@@ -24,9 +35,21 @@ export default {
             frequency: 1,
             rotateOn: "y"
         },
+        "Empty": {
+            constraints: [["side", "none"], ["side", "none"], "console#1010", "console#1010", "none", "none"], //  +X -X +Y -Y +Z -Z
+            instantiate: <Empty/>,
+            frequency: 5,
+            rotateOn: "y"
+        },
         "Buttons": {
             constraints: [["side", "none"], ["side", "none"], "console#1010", "console#1010", "none", "none"], //  +X -X +Y -Y +Z -Z
             instantiate: <Buttons/>,
+            frequency: 5,
+            rotateOn: "y"
+        },
+        "Cross": {
+            constraints: [["side", "none"], ["side", "none"], "console#1010", "console#1010", "none", "none"], //  +X -X +Y -Y +Z -Z
+            instantiate: <Cross/>,
             frequency: 5,
             rotateOn: "y"
         },
@@ -51,7 +74,7 @@ export default {
         "Flower": {
             constraints: ["none", "none", ["none", "flower"], "flower", "none", "none"], //  +X -X +Y -Y +Z -Z
             instantiate: <Flower/>,
-            frequency: 1,
+            frequency: 3,
             rotateOn: "y"
         },
         "FlowerBall": {

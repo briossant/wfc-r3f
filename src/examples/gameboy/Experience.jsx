@@ -2,6 +2,9 @@ import {OrbitControls, Environment} from '@react-three/drei'
 import {useControls} from 'leva'
 import WfcEl from "../../renderer/WFC";
 import gameboy from "./gameboy";
+import {Bloom, DepthOfField, EffectComposer, Noise, Scanline, Vignette} from "@react-three/postprocessing";
+import {BlendFunction} from "postprocessing";
+import {Perf} from "r3f-perf";
 
 export default function Experience() {
 
@@ -28,7 +31,17 @@ export default function Experience() {
 
     return <>
 
-        {/*<Perf position="top-left" />*/}
+        <EffectComposer>
+            <Bloom luminanceThreshold={0} luminanceSmoothing={2.9} height={100} />
+            <Noise opacity={0.02} />
+            <Vignette eskil={false} offset={0.1} darkness={1.1} />
+            {/*<Scanline
+                blendFunction={BlendFunction.OVERLAY} // blend mode
+                density={2.25} // scanline density
+            />*/}
+        </EffectComposer>
+
+        <Perf position="top-left" />
         <WfcEl tileset={gameboy} width={width} height={height} depth={depth}/>
 
 

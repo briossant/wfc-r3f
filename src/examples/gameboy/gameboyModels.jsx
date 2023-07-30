@@ -249,7 +249,7 @@ export function FlowerBottomBall(props) {
 export function CubicMess(props) {
     const { nodes, materials } = useGLTF("/models/gameboy/cubicMess.glb");
     return (
-        <group {...props} scale={1} dispose={null}>
+        <group {...props} scale={1 + Math.random()*0.1} dispose={null}>
             <mesh
                 castShadow
                 receiveShadow
@@ -261,6 +261,54 @@ export function CubicMess(props) {
     );
 }
 
+export function Empty(props) {
+    const { nodes, materials } = useGLTF("/models/gameboy/gameboyEmpty.glb");
+    return (
+        <group {...props} scale={0.5} dispose={null}>
+            <mesh
+                castShadow
+                receiveShadow
+                geometry={nodes.nothing.geometry}
+                material={materials.WhitePlastic}
+                position={[-0.004, 0, 0]}
+                scale={[1, 1, 0.25]}
+            />
+        </group>
+    );
+}
+
+export function Cross(props) {
+    const { nodes, materials } = useGLTF("/models/gameboy/gameboyCross.glb");
+    return (
+        <group {...props} scale={0.5} dispose={null}>
+            <mesh
+                castShadow
+                receiveShadow
+                geometry={nodes.cross.geometry}
+                material={materials.WhitePlastic}
+                position={[-0.004, 0, 0]}
+                scale={[1, 1, 0.25]}
+            />
+            <group position={[0, 0, -0.303]} scale={0.125}>
+                <mesh
+                    castShadow
+                    receiveShadow
+                    geometry={nodes.Cube011.geometry}
+                    material={materials.black}
+                />
+                <mesh
+                    castShadow
+                    receiveShadow
+                    geometry={nodes.Cube011_1.geometry}
+                    material={materials.black}
+                />
+            </group>
+        </group>
+    );
+}
+
+useGLTF.preload("/models/gameboy/gameboyCross.glb");
+useGLTF.preload("/models/gameboy/gameboyEmpty.glb");
 useGLTF.preload("/models/gameboy/cubicMess.glb");
 useGLTF.preload("/models/gameboy/FlowerBottomBall.glb");
 useGLTF.preload("/models/gameboy/FlowerBall.glb");
