@@ -1,5 +1,7 @@
 # Wave Function Collapse (WFC) with Three.js and React Three Fiber (r3f)
 
+This project is at an early stage, you may come back later for a more usable state.
+
 [...]
 
 ## Table of Contents
