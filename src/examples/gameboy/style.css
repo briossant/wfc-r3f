@@ -40,4 +40,18 @@ a.not-a{
     top:10px;left:12.6vmin;
     color: rgba(184,184,184,0);
 }
+.overlay {
+    z-index: 100;
+    position: absolute;
+    top: 30px;left: 20px;
+    color: white;
+    font-family: 'monospace', monospace;
+    font-size: 2.2vmin;
+    text-shadow: 0 0 5px #C8C8C8;
 
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
