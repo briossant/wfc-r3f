@@ -14,6 +14,6 @@ export default function WfcEl({tileset, width, height, depth, offset}) {
     }, [width, height, depth]);
 
     return <>
-        <GridDisplayer tileset={tileset.tiles} grid={grid} offset={offset}/>
+        <GridDisplayer tileset={tileset} grid={grid} offset={offset}/>
     </>
 }

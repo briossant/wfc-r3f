@@ -2,7 +2,7 @@ import Frame from "./Frame";
 import {getRdmInt} from "./utilities";
 
 export default class {
-    constructor(tileset, width = 10, height = 10, depth = 10) {
+    constructor(tileSet, width = 10, height = 10, depth = 10) {
 
         this.width = width;
         this.height = height;
@@ -10,15 +10,14 @@ export default class {
         this.size = width*height*depth;
 
 
-        this.tileset = tileset.tiles;
-        this.tiles = Object.keys(this.tileset);
+        this.tileSet = tileSet;
 
-        this.grid = [...Array(this.size)].map(() => new Frame(this.tiles, this.tileset, tileset.failsafeTile));
+        this.grid = [...Array(this.size)].map(() => new Frame(tileSet));
         this.fillFramesNeighbours();
         this.allCollapsed = false;
 
-        if (tileset.borderConstraints.length > 0){
-            this.applyBorderConstraints(tileset.borderConstraints)
+        if (tileSet.borderConstraints.length > 0){
+            this.applyBorderConstraints(tileSet.borderConstraints)
         }
     }
 

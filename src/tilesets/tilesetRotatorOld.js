@@ -19,8 +19,6 @@ export default function (tileset) {
         });
     });
 
-    console.log(tileset)
-
     return tileset;
 }
 

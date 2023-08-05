@@ -6,20 +6,19 @@ export default class {
     //neighbours
     neighbours = [...Array(6)];
 
-    constructor(tiles, tileset, failsafetile) {
+    constructor(tileSet) {
         this.collapsed = false;
-        this.tileset = tileset;
-        this.tiles = tiles;
+        this.tileSet = tileSet;
+        this.tiles = tileSet.getTileNamesList();
         this.tile = null;
-        this.failsafetile = failsafetile;
         this.entropy = 0;
         this.updateEntropie();
     }
 
     updateEntropie = () => {
         this.entropy = 0;
-        this.tiles.forEach(tile => {
-            this.entropy += Math.log2(1+this.tileset[tile].frequency);
+        this.tiles.forEach(name => {
+            this.entropy += Math.log2(1+this.tileSet.getTile(name).frequency);
         });
     }
 
@@ -30,9 +29,9 @@ export default class {
             return;
         }
         const hist = [];
-        this.tiles.forEach(tile => {
-            for (let i = 0; i < this.tileset[tile].frequency; i++) {
-                hist.push(tile);
+        this.tiles.forEach(name => {
+            for (let i = 0; i < this.tileSet.getTile(name).frequency; i++) {
+                hist.push(name);
             }
         })
         this.tile = hist[getRdmInt(0, hist.length)];
@@ -43,14 +42,14 @@ export default class {
         return i%2 === 0 ? i+1 : i-1;
     }
 
-    isInConstraints = (tile, cons, i) => {
+    isInConstraints = (name, cons, i) => {
         if (!Array.isArray(cons)) cons = [cons];
 
         for (let j = 0; j < cons.length; j++) {
-            if (Array.isArray(this.tileset[tile].constraints[i])){
-                if(this.tileset[tile].constraints[i].includes(cons[j])) return true;
+            if (Array.isArray(this.tileSet.getTile(name).constraints[i])){
+                if(this.tileSet.getTile(name).constraints[i].includes(cons[j])) return true;
             }else{
-                if(cons[j] === this.tileset[tile].constraints[i]) return true
+                if(cons[j] === this.tileSet.getTile(name).constraints[i]) return true
             }
         }
 
@@ -83,7 +82,7 @@ export default class {
 
     failsafe = () => {
         console.log("ERROR WHILE PROPAGATING: no tile left in the frame - ("+this.neighbours.join("|")+")")
-        this.tiles = [this.failsafetile];
+        this.tiles = [this.tileSet.failsafeTile];
         this.collapse();
     }
 
@@ -91,7 +90,7 @@ export default class {
         for (let i = 0; i < 6; i++) {
             if(this.neighbours[i] === undefined || this.neighbours[i].collapsed) continue;
 
-            const constraints = this.tiles.map(name => this.tileset[name].constraints[i]);
+            const constraints = this.tiles.map(name => this.tileSet.getTile(name).constraints[i]);
             this.neighbours[i].applyConstraints(constraints, i);
         }
     }

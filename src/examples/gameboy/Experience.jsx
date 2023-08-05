@@ -1,7 +1,7 @@
 import {OrbitControls, Environment} from '@react-three/drei'
 import {button, useControls} from 'leva'
 import WfcEl from "../../renderer/WFC";
-import gameboy from "./gameboy";
+import Gameboy from "./gameboy";
 import {Bloom, DepthOfField, EffectComposer, Noise, Scanline, Vignette} from "@react-three/postprocessing";
 import {BlendFunction} from "postprocessing";
 import {Perf} from "r3f-perf";
@@ -34,6 +34,8 @@ export default function Experience() {
         ReGenerate: button(() => { setSeed(Math.random()) }),
     })
 
+    const gameboy = new Gameboy();
+    
     return <>
 
         <EffectComposer>
