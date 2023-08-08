@@ -42,6 +42,15 @@ export default class {
         i % this.depth
     ];
 
+    getIndex = (x, y = 0, z = 0) => {
+        if (Array.isArray(x)) {
+            y = x[1];
+            z = x[2];
+            x = x[0];
+        }
+        return (x*this.height + y)*this.depth + z;
+    }
+
     fillFramesNeighbours = (i = 0, max_i = this.size) => {
         while (i<max_i) {
             const [x,y,z] = this.getCoordinates(i);
@@ -88,12 +97,13 @@ export default class {
         return chosenFrame;
     }
 
-    run = (forcedStart = undefined) => {
-        if (forcedStart){
-            this.grid[forcedStart.index].tiles = forcedStart.tiles;
-            this.grid[forcedStart.index].collapse();
-            this.grid[forcedStart.index].propagate();
-        }
+    run = (forcedStart = []) => {
+        forcedStart.forEach(st => {
+            const i = this.getIndex(st.x, st.y, st.z)
+            this.grid[i].tiles = st.tiles;
+            this.grid[i].collapse();
+            this.grid[i].propagate();
+        });
         while (!this.allCollapsed){
             const frame = this.chooseRandomFrame();
             if (this.allCollapsed) break;
